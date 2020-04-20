@@ -32,7 +32,7 @@ module.exports = function (app) {
         console.log(newNote);
         notesData.push(newNote);
 
-        fs.writeFileSync("./db/db.json", JSON.stringify(notesData), (err) => {
+        fs.writeFileSync("./db/db.json", JSON.stringify(notesData), err => {
             if (err) throw err;
             console.log("Saved Note")
         });
@@ -46,11 +46,11 @@ module.exports = function (app) {
             if (notesData[i].id === parseInt(req.params.id, 10)) {
                 console.log(notesData[i]);
                 notesData.splice(i, 1);
-                //write file t
+                //write file to json
             }
         }
         console.log(notesData);
-        fs.writeFileSync("./db/db.json", JSON.stringify(notesData), (err) => {
+        fs.writeFileSync("./db/db.json", JSON.stringify(notesData), err => {
             if (err) throw err;
             console.log("Saved Note")
         });
