@@ -27,17 +27,50 @@ module.exports = function (app) {
     //save note to json 
     app.post("/api/notes", function (req, res) {
         const newNote = req.body;
-        newNote.id = notesData[notesData.length - 1].id + 1
-        newNote.route = newNote.title.replace(/\s+/g, "").toLowerCase();
-        console.log(newNote);
-        notesData.push(newNote);
+        console.log(notesData[notesData.length - 1]);
+        if (notesData[notesData.length - 1]) {
+            if (notesData[notesData.length - 1].id) {
+                newNote.id = notesData[notesData.length - 1].id + 1
+                newNote.route = newNote.title.replace(/\s+/g, "").toLowerCase();
+                console.log(newNote);
+                notesData.push(newNote);
 
-        fs.writeFileSync("./db/db.json", JSON.stringify(notesData), err => {
-            if (err) throw err;
-            console.log("Saved Note")
-        });
+                fs.writeFileSync("./db/db.json", JSON.stringify(notesData), err => {
+                    if (err) throw err;
+                    console.log("Saved Note")
+                });
 
-        res.json(newNote);
+                res.json(newNote);
+            }
+            else {
+                newNote.id = 1
+                newNote.route = newNote.title.replace(/\s+/g, "").toLowerCase();
+                console.log(newNote);
+                notesData.push(newNote);
+
+                fs.writeFileSync("./db/db.json", JSON.stringify(notesData), err => {
+                    if (err) throw err;
+                    console.log("Saved Note")
+                });
+
+                res.json(newNote);
+            }
+        }
+        else {
+            newNote.id = 1
+            newNote.route = newNote.title.replace(/\s+/g, "").toLowerCase();
+            console.log(newNote);
+            notesData.push(newNote);
+
+            fs.writeFileSync("./db/db.json", JSON.stringify(notesData), err => {
+                if (err) throw err;
+                console.log("Saved Note")
+            });
+
+            res.json(newNote);
+
+        }
+
     })
     app.delete("/api/notes/:id", function (req, res) {
         console.log("working??")
@@ -54,6 +87,6 @@ module.exports = function (app) {
             if (err) throw err;
             console.log("Saved Note")
         });
-        res.redirect('/notes')
+        res.json(notesData)
     })
 }
