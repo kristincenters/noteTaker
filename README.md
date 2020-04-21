@@ -6,7 +6,7 @@ Click the link below to open the app, enter your note title and text, click save
 
 ## [Note Taker Application Deployed on Heroku](https://dashboard.heroku.com/apps/still-brushlands-77723)
 
-![](./assets/node_cli_app.gif)
+![](./public/assets/notetaker.gif)
 
 ## Technology Stacks
 
