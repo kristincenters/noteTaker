@@ -1,27 +1,17 @@
 
-var path = require("path");
-var fs = require("fs");
+const path = require("path");
+const fs = require("fs");
 
-var notesData = require("../db/db.json");
+const notesData = require("../db/db.json");
 
 module.exports = function (app) {
 
     //reads db file and returns notes
     app.get("/api/notes", function (req, res) {
+        console.log(req.params);
         return res.json(notesData);
     })
-    //takes user input, adds it with id to db and renders new note on page
-    app.get("/api/notes", function (req, res) {
-        const noteID = req.params.id;
-        console.log(noteID);
-        for (let i = 0; i < notesData.length; i++) {
-            if (noteID === notesData[i].route) {
-                return res.json(notesData[i]);
-            };
-        };
-        return res.json(false);
-    });
-    //save new note with id value (keeping console.logs for reference)
+    //create new note and save to sidebar list 
     app.post("/api/notes", function (req, res) {
         const newNote = req.body;
         console.log(notesData[notesData.length - 1]);
@@ -33,10 +23,8 @@ module.exports = function (app) {
             //increment id value by 1 and save note to db and page
             if (notesData[notesData.length - 1].id) {
                 newNote.id = notesData[notesData.length - 1].id + 1
-                newNote.route = newNote.title.replace(/\s+/g, "").toLowerCase();
                 console.log(newNote);
                 notesData.push(newNote);
-
                 fs.writeFileSync("./db/db.json", JSON.stringify(notesData), err => {
                     if (err) throw err;
                 });
@@ -44,10 +32,8 @@ module.exports = function (app) {
             }
             else {
                 newNote.id = 1
-                newNote.route = newNote.title.replace(/\s+/g, "").toLowerCase();
                 console.log(newNote);
                 notesData.push(newNote);
-
                 fs.writeFileSync("./db/db.json", JSON.stringify(notesData), err => {
                     if (err) throw err;
                 });
@@ -56,16 +42,27 @@ module.exports = function (app) {
         }
         else {
             newNote.id = 1
-            newNote.route = newNote.title.replace(/\s+/g, "").toLowerCase();
             console.log(newNote);
             notesData.push(newNote);
-
             fs.writeFileSync("./db/db.json", JSON.stringify(notesData), err => {
                 if (err) throw err;
             });
             res.json(newNote)
         }
     })
+    //update notes
+    //app.put("/api/notes/:id", function (req, res) {
+    //  const noteID = parseInt(req.params.id);
+    //  const updatedNote = req.body;
+    //  if (notesData["noteData" + noteID] != null) {
+    //    notesData["notesData + noteID] = updatedNote;
+    //  console.log(updated note)
+    //    fs.writeFileSync("./db/db.json", JSON.stringify(notesData), err => {
+    //    if (err) throw err;
+    //    });
+    //   res.json(notesData);
+    //}
+
     //delete note based on unique id 
     app.delete("/api/notes/:id", function (req, res) {
         console.log(req.params);
