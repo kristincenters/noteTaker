@@ -4,7 +4,7 @@ This application allows users to enter, save and delete notes to keep track of t
 
 Click the link below to open the app, enter your note title and text, click save to add your new note. Click the trash can to remove notes. 
 
-## [Note Taker Application Deployed on Heroku](https://dashboard.heroku.com/apps/still-brushlands-77723)
+## [Note Taker Application Deployed on Heroku](https://still-brushlands-77723.herokuapp.com/)
 
 ![](./public/assets/notetaker.gif)
 
