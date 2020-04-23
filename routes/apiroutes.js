@@ -50,19 +50,6 @@ module.exports = function (app) {
             res.json(newNote)
         }
     })
-    //update notes
-    //app.put("/api/notes/:id", function (req, res) {
-    //  const noteID = parseInt(req.params.id);
-    //  const updatedNote = req.body;
-    //  if (notesData["noteData" + noteID] != null) {
-    //    notesData["notesData + noteID] = updatedNote;
-    //  console.log(updated note)
-    //    fs.writeFileSync("./db/db.json", JSON.stringify(notesData), err => {
-    //    if (err) throw err;
-    //    });
-    //   res.json(notesData);
-    //}
-
     //delete note based on unique id 
     app.delete("/api/notes/:id", function (req, res) {
         console.log(req.params);
